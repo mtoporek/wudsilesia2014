@@ -1,0 +1,65 @@
+﻿<Window x:Class="Wud.Kiosk.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow"  WindowState="Maximized" WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/BlackBackground.jpg"/>
+    </Window.Background>
+    
+    <Window.Resources>        
+        <Style x:Key="FlickrButton" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Grid">
+                            <Image Width="50" Source="Resources/FlickrShare.png"/>
+                        </Grid>              
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Grid" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MailButton" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Grid">
+                            <Image Width="50" Source="Resources/MailShare.png"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Grid" Property="Opacity" Value="0.2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image x:Name="img" Stretch="Uniform" />
+            <Border Background="LightSkyBlue"  VerticalAlignment="Top" HorizontalAlignment="Right" CornerRadius="7,0,0,7" Opacity="0.8">
+                <StackPanel Orientation="Horizontal">
+                    <Button  Click="MailClick" Margin="10" Style="{StaticResource MailButton}"/>
+                    <Button  Click="UploadClick" Margin="10" Style="{StaticResource FlickrButton}"/>
+                </StackPanel>
+            </Border>
+          </Grid>
+
+
+        <Button Width="80" Height="150" Click="PreviousClick" Content="-" Margin="10" HorizontalAlignment="Left"/>
+        <Button Width="80" Height="150" Click="NextClick" Content="+" Margin="10" HorizontalAlignment="Right"/>
+
+        <Button Width="100" Height="100" MouseRightButtonDown="ConfigurationClick" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+    </Grid>
+
+</Window>

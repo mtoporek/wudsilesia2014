@@ -1,0 +1,63 @@
+﻿<Window x:Class="Wud.Kiosk.Client.ConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WUD 2015 Configuration" Height="450" Width="800"
+        FontFamily="Calibri" WindowState="Normal" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        
+        <GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Width="300" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Column="0">
+                    <TextBlock Text="Naciśnij przycisk Authenticate aby rozpocząć proces autentykacji. Zostaniesz przeniesiony do strony Flickr. 
+                           Postępuj zgodnie z instrukcjami, a uzyskany kod wklej do TextBox i naciśnij przycisk Complete." TextWrapping="Wrap"/>
+                    <Button Width="100" Height="25" Content="Authenticate" Margin="10" HorizontalAlignment="Left" Click="StartAuthentication"/>
+                    <TextBox x:Name="txtFlickrCode" Height="20" Margin="5"  />
+                    <Button Width="100" Height="25" Content="Complete" Margin="10" HorizontalAlignment="Left" Click="CompleteAuthentication"/>
+                </StackPanel>
+                
+                <Image Grid.Column="1" Source="Resources/FlickrLogo.jpg" Stretch="Uniform" Margin="10"/>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,10,0,0">
+                    <TextBlock Text="Adres mail:"/>
+                    <TextBox x:Name="txtMailFrom" Height="20" SelectedText="wudsilesia@yahoo.com"/>
+                    <TextBlock Text="Password:" Margin="0,10,0,0"/>
+                    <PasswordBox x:Name="mailPassword" Height="20" Password="123WUDSilesia"/>
+                    <TextBlock Text="SMTP server:" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtSmtpServer" Height="20" SelectedText="smtp.mail.yahoo.com"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="80" Height="25" Content="Save" Margin="10" HorizontalAlignment="Left" Click="SaveMailConfiguration" />
+                        <Button Width="80" Height="25" Content="Send mail" Margin="10" HorizontalAlignment="Left" Click="SendTestMail" />
+                        <TextBox x:Name="txtMailTo" Width="185" Height="20" SelectedText="mtoporek@future-processing.com"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <Image Grid.Column="1" Source="Resources/MailLogo.png" Stretch="Uniform" Margin="10"/>
+            </Grid>
+        </GroupBox>
+        
+        <Button Grid.Row="2" Content="Close" Height="25" Width="100" HorizontalAlignment="Right" Margin="0,0,5,5" Click="CloseClick"/>
+    </Grid>
+</Window>

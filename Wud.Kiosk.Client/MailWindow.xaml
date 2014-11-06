@@ -1,0 +1,51 @@
+﻿<Window x:Class="Wud.Kiosk.Client.MailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MailWindow" WindowState="Maximized" WindowStyle="None" 
+        Background="#99000000" AllowsTransparency="True" FontFamily="Calibri">
+    
+    <Window.Resources>
+        <Style x:Key="KeyButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        
+        <Border Background="Moccasin"  CornerRadius="8" Width="500" Height="250">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Height="40" FontSize="32" x:Name="txtMailTo"/>
+                <Button Grid.Row="1" Content="Send" Width="100" Height="30" Click="SendMail"/>
+            </Grid>
+
+        </Border>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Q" Style="{StaticResource KeyButton}" />
+                <Button Content="W" Style="{StaticResource KeyButton}" />
+                <Button Content="E" Style="{StaticResource KeyButton}" />
+            </StackPanel>
+            
+        </Grid>
+        
+        
+    </Grid>
+</Window>
