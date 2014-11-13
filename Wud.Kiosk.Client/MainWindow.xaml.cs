@@ -5,7 +5,6 @@ using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -79,12 +78,6 @@ namespace Wud.Kiosk.Client
             }
         }
 
-        private void StartClick(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
         private void NextClick(object sender, RoutedEventArgs e)
         {
             int id = this.fileNames.IndexOf(this.currentPicture);
@@ -124,7 +117,7 @@ namespace Wud.Kiosk.Client
 
         private void MailClick(object sender, RoutedEventArgs e)
         {
-            var mailWindow = new MailWindow(this.currentPicture, this.mailService);
+            var mailWindow = new MailWindow(this.currentPicture, this.mailService, this.currentPicture);
             mailWindow.ShowDialog();
         }
     }
