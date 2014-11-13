@@ -8,7 +8,7 @@ namespace Wud.Kiosk.Socials.Mail
 {
     public class Mail
     {
-        public string MailTo { get; set; }
+        public IList<string> MailsTo { get; set; }
 
         public string Subject { get; set; }
 

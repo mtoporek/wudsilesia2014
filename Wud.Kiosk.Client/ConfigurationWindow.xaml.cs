@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 using Wud.Kiosk.Socials.FlickrGallery;
@@ -36,7 +37,7 @@ namespace Wud.Kiosk.Client
 
         private void SendTestMail(object sender, RoutedEventArgs e)
         {
-            var mail = new Mail { Subject = "Test mail", Body = "Test", MailTo = txtMailTo.Text };
+            var mail = new Mail { Subject = "Test mail", Body = "Test", MailsTo = new List<string> { txtMailTo.Text } };
             var task = new Task(
                 () => this.mailService.SendMail(mail));
             task.Start();

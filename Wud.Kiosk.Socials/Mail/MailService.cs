@@ -35,7 +35,12 @@ namespace Wud.Kiosk.Socials.Mail
             using (var mailMessage = new MailMessage())
             {
                 mailMessage.From = new MailAddress(this.mailFrom);
-                mailMessage.To.Add(mail.MailTo);
+
+                foreach (var mailTo in mail.MailsTo)
+                {
+                    mailMessage.To.Add(mailTo);
+                }
+
                 mailMessage.Subject = mail.Subject;
                 mailMessage.Body = mail.Body;
                 mailMessage.IsBodyHtml = false;

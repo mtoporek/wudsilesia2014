@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,18 +23,6 @@ namespace Wud.Kiosk.Client
 
         private ObservableCollection<string> mailList;
 
-        public ObservableCollection<string> MailList
-        {
-            get
-            {
-                return this.mailList;
-            }
-            set
-            {
-                this.mailList = value;
-            }
-        }
-
         public MailWindow(string currentPicture, IMailService mailService, string fileName)
         {
             DataContext = this;
@@ -47,18 +36,29 @@ namespace Wud.Kiosk.Client
             this.mailList = new ObservableCollection<string>();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<string> MailList
+        {
+            get
+            {
+                return this.mailList;
+            }
+            set
+            {
+                this.mailList = value;
+            }
+        }
+
         public bool IsMailValid { get; set; }
 
         private void SendMail(object sender, RoutedEventArgs e)
         {
-            // todo: add validatoin
-            string mailTo = txtMailTo.Text;
-
             var mail = new Mail
                            {
                                Subject = "WUD Silesia 2015",
                                Body = "Witaj,",
-                               MailTo = mailTo,
+                               MailsTo = this.mailList.ToList(),
                                Attachments = new List<string> { this.currentPicture }
                            };
 
@@ -73,7 +73,7 @@ namespace Wud.Kiosk.Client
             Close();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -91,8 +91,7 @@ namespace Wud.Kiosk.Client
         }
 
         private bool ValidateMail(string input)
-        {
-            
+        {         
             var rgx = new Regex(Pattern);
             Match match = rgx.Match(input);
             return match.Success;
