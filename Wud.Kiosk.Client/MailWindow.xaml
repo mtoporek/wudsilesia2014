@@ -14,7 +14,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="Grid">
-                            <Image Source="Resources/Send.png"/>
+                            <Image Stretch="None" Source="Resources/Send.png"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -31,7 +31,41 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="Grid">
-                            <Image Source="Resources/Cancel.png"/>
+                            <Image Stretch="None" Source="Resources/Cancel.png"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Grid" Property="Opacity" Value="0.2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AddButton" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Grid">
+                            <Image Stretch="None" Source="Resources/Add.png"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Grid" Property="Opacity" Value="0.2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TrashButton" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="Grid">
+                            <Image Stretch="None" Source="Resources/Trash.png"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -48,7 +82,8 @@
         </ItemsPanelTemplate>
 
         <DataTemplate x:Key="MailDataTemplate">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                <Button Style="{StaticResource TrashButton}" Margin="0,0,15,0" Click="RemoveMail" />
                 <TextBlock Text="{Binding Path=.}" Foreground="White" Margin="5" FontSize="18" />
             </StackPanel>
         </DataTemplate>
@@ -57,47 +92,54 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="450"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="90"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,50,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="700"/>
+                <ColumnDefinition Width="660"/>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" BorderThickness="2">
+            <Border Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" BorderThickness="2">
                 <Image x:Name="imgPreview" Stretch="Uniform" />
             </Border>
 
             <Grid Grid.Column="1" >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="90"/>
-                </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Vertical" FocusManager.FocusedElement="{Binding ElementName=txtMailTo}">
-                    <TextBlock Text="TYPE E-MAIL ADRESSES" TextWrapping="Wrap" FontSize="28" VerticalAlignment="Center" Margin="10,0,10,10"/>
+                    <TextBlock Text="ADD YOUR E-MAIL ADDRESSES (MAX.5)" TextWrapping="Wrap" FontSize="25" VerticalAlignment="Center" Margin="0,0,10,10"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Height="40" FontSize="28" x:Name="txtMailTo" Margin="10,0,10,0" TextChanged="OnTextChanged" Width="600"/>
-                        <Button Content="Add" Width="50" Height="50" Margin="20,0,0,0" IsEnabled="{Binding Path=IsMailValid}" Click="AddMail"/>
+                        <Border Background="#1F4A70" CornerRadius="7" Height="80" Width="650">
+                            <TextBox Height="40" Width="600" FontSize="26" x:Name="txtMailTo" Margin="25,0,10,0" TextChanged="OnTextChanged" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" Background="Transparent" BorderThickness="0"/>
+                        </Border>
+                        <Button Content="Add" Margin="20,0,0,0" Style="{StaticResource AddButton}" IsEnabled="{Binding Path=IsMailValid}" Click="AddMail"/>
                     </StackPanel>
 
-                    <ItemsControl
+                    <ItemsControl Margin="0,15,0,0"
                         ItemsSource="{Binding Path=MailList}"
                         ItemsPanel="{StaticResource MailItemsPanel}"
                         ItemTemplate="{StaticResource MailDataTemplate}" />
                 </StackPanel>
-
-                <Grid Grid.Row="1">
-                    <Button Click="SendMail" Style="{StaticResource SendButton}" Width="200" HorizontalAlignment="Right"/>
-                    <Button Click="Cancel" Style="{StaticResource CancelButton}" Height="20"  Margin="10" HorizontalAlignment="Left"/>
-                </Grid>
-
+                
+                <Image Source="Resources/line_mail.png" Stretch="Uniform" Height="2" Width="800" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="660"/>
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Width="660" Grid.Column="0"></TextBlock>
+            
+            <Button Grid.Column="1" Click="SendMail" Style="{StaticResource SendButton}" HorizontalAlignment="Right"/>
+            <Button Grid.Column="1" Click="Cancel" Style="{StaticResource CancelButton}"  HorizontalAlignment="Left"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>

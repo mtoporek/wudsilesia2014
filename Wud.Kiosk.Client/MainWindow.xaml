@@ -12,7 +12,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="Grid">
-                            <Image Width="50" Source="Resources/MailShare.png"/>
+                            <Image Stretch="None" Source="Resources/MailShare.png"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -25,12 +25,12 @@
         </Style>
 
         <Style x:Key="NextButton" TargetType="{x:Type Button}" >
-            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Margin" Value="10"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="Grid">
-                            <Image Width="50" Source="Resources/Next.png"/>
+                            <Image Stretch="None" Source="Resources/Next.png"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
@@ -43,12 +43,12 @@
         </Style>
 
         <Style x:Key="PreviousButton" TargetType="{x:Type Button}" >
-            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Margin" Value="10"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid x:Name="Grid">
-                            <Image Width="50" Source="Resources/Previous.png"/>
+                            <Image Stretch="None" Source="Resources/Previous.png"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">

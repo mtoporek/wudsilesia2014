@@ -88,5 +88,10 @@ namespace Wud.Kiosk.Client
 
             OnPropertyChanged("MailList");
         }
+
+        private void RemoveMail(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
