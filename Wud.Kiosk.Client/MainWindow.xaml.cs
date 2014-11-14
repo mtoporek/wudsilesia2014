@@ -49,7 +49,9 @@ namespace Wud.Kiosk.Client
 
         private void WorkerDoWork(object sender, DoWorkEventArgs e)
         {
-            this.fileNames = new string[0];
+            this.fileNames = this.pictureProvider.GetFileNames(this.pictureDirectory);
+            var context = e.Argument as DispatcherSynchronizationContext;
+            context.Send(UpdatePicture, this.fileNames.LastOrDefault());
 
             while (true)
             {
@@ -58,9 +60,11 @@ namespace Wud.Kiosk.Client
                 if (currentCount != fileNames.Count())
                 {
                     this.fileNames = this.pictureProvider.GetFileNames(this.pictureDirectory);
-                    var context = e.Argument as DispatcherSynchronizationContext;
+                   // var context = e.Argument as DispatcherSynchronizationContext;
 
                     this.currentPicture = this.fileNames.LastOrDefault();
+                    this.flickrService.Upload(null, currentPicture, "WUD Test", "Test", "WUD");
+
                     context.Send(UpdatePicture, this.currentPicture);
                 }
 
@@ -107,12 +111,6 @@ namespace Wud.Kiosk.Client
         {
             var configuration = new ConfigurationWindow(this.flickrService, this.mailService);
             configuration.ShowDialog();
-        }
-
-        private void UploadClick(object sender, RoutedEventArgs e)
-        {
-            // todo: Pogadac z Slawkiem jakie nazwy, tagi, itp.
-            this.flickrService.Upload(null, currentPicture, "WUD Test", "Test", "WUD");
         }
 
         private void MailClick(object sender, RoutedEventArgs e)

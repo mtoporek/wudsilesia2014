@@ -99,7 +99,7 @@ namespace Wud.Kiosk.Client
 
         private void AddMail(object sender, RoutedEventArgs e)
         {
-            this.mailList.Add(txtMailTo.Text);
+            this.mailList.Add(txtMailTo.Text.Trim());
             txtMailTo.Clear();
 
             OnPropertyChanged("MailList");
