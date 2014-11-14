@@ -44,14 +44,15 @@ namespace Wud.Kiosk.Client
             {
                 this.worker.RunWorkerAsync(DispatcherSynchronizationContext.Current);
             }
-
         }
 
         private void WorkerDoWork(object sender, DoWorkEventArgs e)
         {
             this.fileNames = this.pictureProvider.GetFileNames(this.pictureDirectory);
+            this.currentPicture = this.fileNames.LastOrDefault();
+
             var context = e.Argument as DispatcherSynchronizationContext;
-            context.Send(UpdatePicture, this.fileNames.LastOrDefault());
+            context.Send(UpdatePicture, this.currentPicture);
 
             while (true)
             {
@@ -60,8 +61,6 @@ namespace Wud.Kiosk.Client
                 if (currentCount != fileNames.Count())
                 {
                     this.fileNames = this.pictureProvider.GetFileNames(this.pictureDirectory);
-                   // var context = e.Argument as DispatcherSynchronizationContext;
-
                     this.currentPicture = this.fileNames.LastOrDefault();
                     this.flickrService.Upload(null, currentPicture, "WUD Test", "Test", "WUD");
 
@@ -96,7 +95,6 @@ namespace Wud.Kiosk.Client
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-
             int id = this.fileNames.IndexOf(this.currentPicture);
 
             if (id > 0)

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-
 using Wud.Kiosk.Socials.Mail;
 
 namespace Wud.Kiosk.Client
@@ -19,9 +18,6 @@ namespace Wud.Kiosk.Client
         private const string Pattern = @"[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}";
         private readonly string currentPicture;
         private readonly IMailService mailService;
-        private readonly string fileName;
-
-        private ObservableCollection<string> mailList;
 
         public MailWindow(string currentPicture, IMailService mailService, string fileName)
         {
@@ -33,24 +29,23 @@ namespace Wud.Kiosk.Client
 
             imgPreview.Source = new BitmapImage(new Uri(fileName));
 
-            this.mailList = new ObservableCollection<string>();
+            MailList = new ObservableCollection<string>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<string> MailList
-        {
-            get
-            {
-                return this.mailList;
-            }
-            set
-            {
-                this.mailList = value;
-            }
-        }
+        public ObservableCollection<string> MailList { get; set; }
 
         public bool IsMailValid { get; set; }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         private void SendMail(object sender, RoutedEventArgs e)
         {
@@ -58,7 +53,7 @@ namespace Wud.Kiosk.Client
                            {
                                Subject = "WUD Silesia 2015",
                                Body = "Witaj,",
-                               MailsTo = this.mailList.ToList(),
+                               MailsTo = this.MailList.ToList(),
                                Attachments = new List<string> { this.currentPicture }
                            };
 
@@ -73,20 +68,9 @@ namespace Wud.Kiosk.Client
             Close();
         }
 
-
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            IsMailValid = ValidateMail(txtMailTo.Text) && this.mailList.Count < 5;
+            IsMailValid = ValidateMail(txtMailTo.Text) && this.MailList.Count < 5;
             OnPropertyChanged("IsMailValid");
         }
 
@@ -99,7 +83,7 @@ namespace Wud.Kiosk.Client
 
         private void AddMail(object sender, RoutedEventArgs e)
         {
-            this.mailList.Add(txtMailTo.Text.Trim());
+            MailList.Add(txtMailTo.Text.Trim());
             txtMailTo.Clear();
 
             OnPropertyChanged("MailList");
