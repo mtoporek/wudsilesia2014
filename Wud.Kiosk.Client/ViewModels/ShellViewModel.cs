@@ -19,7 +19,7 @@ using Wud.Kiosk.Socials.Mail;
 
 namespace Wud.Kiosk.Client.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase
+    public class ShellViewModel : Screen
     {
         private readonly BackgroundWorker worker;
         private readonly PictureProvider pictureProvider;

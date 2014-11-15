@@ -65,7 +65,7 @@
 
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource SendButton}"
                     HorizontalAlignment="Right" Margin="0,0,55,0"
-                    cal:Message.Attach="SendMail"/>
+                    cal:Message.Attach="SendMail" IsEnabled="{Binding MailListInNotEmpty}"/>
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource CancelButton}" 
                     HorizontalAlignment="Left" Margin="50,0,0,0"
                     cal:Message.Attach="Cancel"/>
@@ -90,6 +90,4 @@
             </Grid>
         </Grid>
     </Grid>
-    
-
 </Window>

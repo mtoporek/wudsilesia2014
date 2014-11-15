@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Wud.Kiosk.Socials.Mail
 {
@@ -15,7 +11,5 @@ namespace Wud.Kiosk.Socials.Mail
         public string Body { get; set; }
 
         public IList<string> Attachments { get; set; }
- 
-
     }
 }

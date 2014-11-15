@@ -30,6 +30,14 @@ namespace Wud.Kiosk.Client.ViewModels
 
         public string MailTo { get; set; }
 
+        public bool MailListInNotEmpty
+        {
+            get
+            {
+                return MailList.Any();
+            }
+        }
+
         public ObservableCollection<string> MailList { get; set; }
 
         public byte[] Picture
@@ -49,6 +57,7 @@ namespace Wud.Kiosk.Client.ViewModels
 
                 NotifyOfPropertyChange("MailTo");
                 NotifyOfPropertyChange("MailList");
+                NotifyOfPropertyChange("MailListInNotEmpty");
             }
         }
 
@@ -56,24 +65,18 @@ namespace Wud.Kiosk.Client.ViewModels
         {
             MailList.Remove(mail);
             NotifyOfPropertyChange("MailList");
-        }
-
-        private bool ValidateMail(string input)
-        {
-            var rgx = new Regex(Pattern);
-            Match match = rgx.Match(input);
-            return match.Success;
+            NotifyOfPropertyChange("MailListInNotEmpty");
         }
 
         public void SendMail()
         {
             var mail = new Mail
-                           {
-                               Subject = "WUD Silesia 2015",
-                               Body = "Witaj,",
-                               MailsTo = MailList.ToList(),
-                               Attachments = new List<string> { this.currentPicture }
-                           };
+            {
+                Subject = "WUD Silesia 2015",
+                Body = "Witaj,",
+                MailsTo = MailList.ToList(),
+                Attachments = new List<string> { this.currentPicture }
+            };
 
             var task = new Task(() => this.mailService.SendMail(mail));
             task.Start();
@@ -84,6 +87,18 @@ namespace Wud.Kiosk.Client.ViewModels
         public void Cancel()
         {
             TryClose();
+        }
+
+        private bool ValidateMail(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return false;
+            }
+
+            var rgx = new Regex(Pattern);
+            Match match = rgx.Match(input);
+            return match.Success;
         }
     }
 }

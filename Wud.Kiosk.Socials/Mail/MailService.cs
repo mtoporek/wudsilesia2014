@@ -6,11 +6,10 @@ namespace Wud.Kiosk.Socials.Mail
     public class MailService : IMailService
     {
         private string smtpServer;
-        private int portNumber;
-        private bool enableSSL;
-
         private string mailFrom;
         private string password;
+        private int portNumber;
+        private bool enableSSL;
 
         public MailService()
         {
