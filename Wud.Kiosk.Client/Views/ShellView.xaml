@@ -8,7 +8,7 @@
         <ImageBrush ImageSource="../Resources/Background.jpg"/>
     </Window.Background>
 
-    <Grid>
+    <Grid>     
         <Image Stretch="Uniform" Source="{Binding Path=Picture}" />
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -17,6 +17,9 @@
 
         <Button cal:Message.Attach="PreviousPicture" Style="{StaticResource PreviousButton}" />
         <Button cal:Message.Attach="NextPicture" Style="{StaticResource NextButton}"/>
-        <Button Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0"/>
+
+        <Button Width="100" Height="100" Opacity="0"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                cal:Message.Attach="[Event MouseRightButtonUp] = [Action OpenConfigurationWindow]"/>
     </Grid>
 </Window>

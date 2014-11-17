@@ -26,21 +26,20 @@
     <Grid>
         <Grid VerticalAlignment="Top" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="400"/>
+                <RowDefinition Height="500"/>
                 <RowDefinition Height="65"/>
                 <RowDefinition Height="475"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="630"/>
                 <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-        
+                <ColumnDefinition Width="940"/>
+            </Grid.ColumnDefinitions>     
 
-        <Border Grid.Row="0" Grid.Column="0" Margin="15,15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" BorderThickness="2">
+        <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" BorderThickness="2" Margin="0,50,0,0">
             <Image Stretch="Uniform" Source="{Binding Path=Picture}" />
         </Border>
         
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <TextBlock Text="ADD YOUR E-MAIL ADDRESSES (MAX.5)" TextWrapping="Wrap" FontSize="25"
                            VerticalAlignment="Center" FontWeight="Bold" Margin="0,20,10,15"/>
 
@@ -61,13 +60,13 @@
                         ItemTemplate="{StaticResource MailDataTemplate}" />
             </StackPanel>
 
-            <Image Grid.Row="0" Grid.Column="1" Source="../Resources/line_mail.png" Stretch="Uniform" Height="2" Width="800" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,10,0"/>
+            <Image Grid.Row="0" Grid.Column="1" Source="../Resources/line_mail.png" Stretch="Uniform" Height="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,20,0"/>
 
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource SendButton}"
-                    HorizontalAlignment="Right" Margin="0,0,55,0"
+                    HorizontalAlignment="Right" Margin="0,0,20,0"
                     cal:Message.Attach="SendMail" IsEnabled="{Binding MailListInNotEmpty}"/>
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource CancelButton}" 
-                    HorizontalAlignment="Left" Margin="50,0,0,0"
+                    HorizontalAlignment="Left" 
                     cal:Message.Attach="Cancel"/>
 
             <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
@@ -81,8 +80,8 @@
                 <controls:FloatingTouchScreenKeyboard
                      x:Name="Keyboard"
                     IsOpen="True"
-                    Width="1500"
-                    Height="430"
+                    Width="1920"
+                    Height="545"
                     IsAllowedToFade="False"
                     AreAnimationsEnabled="True"
                     HorizontalAlignment="Center"

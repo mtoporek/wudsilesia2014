@@ -4,15 +4,9 @@ using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-
 using Caliburn.Micro;
-
 using Wud.Kiosk.Camera;
 using Wud.Kiosk.Socials.FlickrGallery;
 using Wud.Kiosk.Socials.Mail;
@@ -25,10 +19,8 @@ namespace Wud.Kiosk.Client.ViewModels
         private readonly PictureProvider pictureProvider;
         private readonly IFlickrService flickrService;
         private readonly IMailService mailService;
-
         private readonly IWindowManager windowManager;
         private readonly string pictureDirectory;
-
         private IList<string> fileNames;
         private string currentPicture;
 
@@ -46,11 +38,50 @@ namespace Wud.Kiosk.Client.ViewModels
 
             if (!this.worker.IsBusy)
             {
-                this.worker.RunWorkerAsync(DispatcherSynchronizationContext.Current);
+                this.worker.RunWorkerAsync(SynchronizationContext.Current);
             }
         }
 
         public byte[] Picture { get; set; }
+
+        public void OpenConfigurationWindow()
+        {
+            //var configWindow = new ConfigurationWindow(this.flickrService, this.mailService);
+            //configWindow.ShowDialog();
+
+            var configViewModel = new ConfigurationViewModel(this.flickrService, this.mailService);
+            this.windowManager.ShowWindow(configViewModel);
+        }
+
+        public void PreviousPicture()
+        {
+            int id = this.fileNames.IndexOf(this.currentPicture);
+
+            if (id > 0)
+            {
+                string fileName = fileNames[--id];
+                this.currentPicture = fileName;
+                UpdatePicture(fileName);
+            }
+        }
+
+        public void OpenMailWindow()
+        {
+            var emailViewModel = new EmailViewModel(this.currentPicture, this.mailService);
+            this.windowManager.ShowWindow(emailViewModel);
+        }
+
+        public void NextPicture()
+        {
+            int id = this.fileNames.IndexOf(this.currentPicture);
+
+            if (id < this.fileNames.Count - 1)
+            {
+                string fileName = fileNames[++id];
+                this.currentPicture = fileName;
+                UpdatePicture(fileName);
+            }
+        }
 
         private void WorkerDoWork(object sender, DoWorkEventArgs e)
         {
@@ -86,42 +117,6 @@ namespace Wud.Kiosk.Client.ViewModels
                 Picture = File.ReadAllBytes(fileName);
                 NotifyOfPropertyChange("Picture");
             }
-        }
-
-        public void NextPicture()
-        {
-            int id = this.fileNames.IndexOf(this.currentPicture);
-
-            if (id < this.fileNames.Count - 1)
-            {
-                string fileName = fileNames[++id];
-                this.currentPicture = fileName;
-                UpdatePicture(fileName);
-            }
-        }
-
-        public void PreviousPicture()
-        {
-            int id = this.fileNames.IndexOf(this.currentPicture);
-
-            if (id > 0)
-            {
-                string fileName = fileNames[--id];
-                this.currentPicture = fileName;
-                UpdatePicture(fileName);
-            }
-        }
-
-        public void OpenMailWindow()
-        {
-            var emailViewModel = new EmailViewModel(this.currentPicture, this.mailService);
-            this.windowManager.ShowWindow(emailViewModel);
-        }
-
-        private void ConfigurationClick(object sender, MouseButtonEventArgs e)
-        {
-            var configuration = new ConfigurationWindow(this.flickrService, this.mailService);
-            configuration.ShowDialog();
         }
     }
 }

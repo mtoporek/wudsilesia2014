@@ -1,0 +1,92 @@
+﻿<Window x:Class="Wud.Kiosk.Client.Views.ConfigurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="WUD 2015 Configuration" Height="450" Width="800"
+        FontFamily="Calibri" WindowState="Normal" 
+        WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Width="300" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Column="0">
+                    <TextBlock Text="Naciśnij przycisk Authenticate aby rozpocząć proces autentykacji. Zostaniesz przeniesiony do strony Flickr. 
+                           Postępuj zgodnie z instrukcjami, a uzyskany kod wklej do TextBox i naciśnij przycisk Complete." TextWrapping="Wrap"/>
+                    <Button Width="100" Height="25" Content="Authenticate" Margin="10" HorizontalAlignment="Left" cal:Message.Attach="StartAuthentication"/>
+                    <TextBox x:Name="txtFlickrCode" Height="20" Margin="5"  />
+                    <Button Width="100" Height="25" Content="Complete" Margin="10" HorizontalAlignment="Left">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <cal:ActionMessage MethodName="CompleteAuthentication">
+                                    <cal:Parameter Value="{Binding ElementName=txtFlickrCode, Path=Text}" />
+                                </cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+
+                <Image Grid.Column="1" Source="../Resources/FlickrLogo.jpg" Stretch="Uniform" Margin="10"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,10,0,0">
+                    <TextBlock Text="Adres mail:"/>
+                    <TextBox x:Name="txtMailFrom" Height="20" SelectedText="wudsilesia@yahoo.com"/>
+                    <TextBlock Text="Password:" Margin="0,10,0,0"/>
+                    <PasswordBox x:Name="mailPassword" Height="20" Password="123WUDSilesia"/>
+                    <TextBlock Text="SMTP server:" Margin="0,10,0,0"/>
+                    <TextBox x:Name="txtSmtpServer" Height="20" SelectedText="smtp.mail.yahoo.com"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="80" Height="25" Content="Save" Margin="10" HorizontalAlignment="Left" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="SaveMailConfiguration">
+                                        <cal:Parameter Value="Test" />
+                                        <cal:Parameter Value="{Binding ElementName=txtSmtpServer, Path=Text}" />
+                                        <cal:Parameter Value="{Binding ElementName=mailPassword, Path=Password}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button Width="80" Height="25" Content="Send mail" Margin="10" HorizontalAlignment="Left"  >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="SendTestMail">
+                                        <cal:Parameter Value="{Binding ElementName=txtMailTo, Path=Text}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <TextBox x:Name="txtMailTo" Width="185" Height="20" SelectedText="mtoporek@future-processing.com"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <Image Grid.Column="1" Source="../Resources/MailLogo.png" Stretch="Uniform" Margin="10"/>
+            </Grid>
+        </GroupBox>
+
+        <Button Grid.Row="2" Content="Close" Height="25" Width="100" HorizontalAlignment="Right" Margin="0,0,5,5" cal:Message.Attach="Close" />
+    </Grid>
+
+</Window>
