@@ -7,7 +7,11 @@ namespace Wud.Kiosk.Camera
     {
         public IList<string> GetFileNames(string directory)
         {
-            // TODO: mtoporek: Dorobic extension method
+            if (!Directory.Exists(directory))
+            {
+                throw new DirectoryNotFoundException("directory");
+            }
+
             return Directory.GetFiles(directory);
         }
     }

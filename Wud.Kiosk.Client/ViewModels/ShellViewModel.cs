@@ -46,9 +46,6 @@ namespace Wud.Kiosk.Client.ViewModels
 
         public void OpenConfigurationWindow()
         {
-            //var configWindow = new ConfigurationWindow(this.flickrService, this.mailService);
-            //configWindow.ShowDialog();
-
             var configViewModel = new ConfigurationViewModel(this.flickrService, this.mailService);
             this.windowManager.ShowWindow(configViewModel);
         }
