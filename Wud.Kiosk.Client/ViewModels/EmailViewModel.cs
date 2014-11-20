@@ -72,8 +72,8 @@ namespace Wud.Kiosk.Client.ViewModels
         {
             var mail = new Mail
             {
-                Subject = "WUD Silesia 2015",
-                Body = "Witaj,",
+                Subject = "You and your friends on WUD Silesia 2014 conference",
+                Body = string.Empty,
                 MailsTo = MailList.ToList(),
                 Attachments = new List<string> { this.currentPicture }
             };
