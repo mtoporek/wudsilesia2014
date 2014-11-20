@@ -37,6 +37,11 @@ namespace Wud.Kiosk.Socials.FlickrGallery
 
         public void Upload(Stream stream, string fileName, string title, string description, string tags)
         {
+            if (FlickrManager.OAuthToken == null)
+            {
+                return;
+            }
+
             Flickr flickr = FlickrManager.GetAuthInstance();
 
             var task = new Task<string>(
@@ -47,7 +52,6 @@ namespace Wud.Kiosk.Socials.FlickrGallery
                     });
 
             task.Start();
-
         }
     }
 }

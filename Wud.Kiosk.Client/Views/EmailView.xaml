@@ -22,9 +22,10 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    
-    <Grid>
-        <Grid VerticalAlignment="Top" >
+
+    <Viewbox>
+        <Grid Width="1920" Height="1080">
+            <Grid VerticalAlignment="Top" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="500"/>
                 <RowDefinition Height="65"/>
@@ -89,4 +90,5 @@
             </Grid>
         </Grid>
     </Grid>
+        </Viewbox>
 </Window>
