@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Mail;
 
 namespace Wud.Kiosk.Socials.Mail
@@ -44,9 +45,12 @@ namespace Wud.Kiosk.Socials.Mail
                 mailMessage.Body = mail.Body;
                 mailMessage.IsBodyHtml = false;
 
-                foreach (string attachment in mail.Attachments)
+                if (mail.Attachments.Any())
                 {
-                    mailMessage.Attachments.Add(new Attachment(attachment));
+                    foreach (string attachment in mail.Attachments)
+                    {
+                        mailMessage.Attachments.Add(new Attachment(attachment));
+                    } 
                 }
 
                 using (var smtp = new SmtpClient(this.smtpServer, this.portNumber))

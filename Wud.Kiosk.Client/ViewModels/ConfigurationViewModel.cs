@@ -41,9 +41,9 @@ namespace Wud.Kiosk.Client.ViewModels
             task.Start();
         }
 
-        public void SaveMailConfiguration(string content, string smtpServer, string password)
+        public void SaveMailConfiguration(string mailFrom, string smtpServer, string password)
         {
-            this.mailService.Configure(content, 587, password, true, smtpServer);
+            this.mailService.Configure(mailFrom, 587, password, true, smtpServer);
         }
     }
 }

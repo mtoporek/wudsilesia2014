@@ -60,7 +60,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <cal:ActionMessage MethodName="SaveMailConfiguration">
-                                        <cal:Parameter Value="Test" />
+                                        <cal:Parameter Value="{Binding ElementName=txtMailFrom, Path=Text}" />
                                         <cal:Parameter Value="{Binding ElementName=txtSmtpServer, Path=Text}" />
                                         <cal:Parameter Value="{Binding ElementName=mailPassword, Path=Password}" />
                                     </cal:ActionMessage>
